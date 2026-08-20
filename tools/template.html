@@ -175,6 +175,25 @@
   /* ---- profile mode ---- */
   body.mode-profile .cardline{display:none}
 
+  /* ---- CV download ---- */
+  .cv{
+    display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
+    margin-top:6px;padding:12px 16px;
+    border:1px solid var(--rule);border-radius:4px;
+    background:var(--surface-2);color:var(--ink);text-decoration:none;
+    transition:border-color .16s ease,color .16s ease,transform .16s ease;
+  }
+  .cv:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .cv svg{width:19px;height:19px;flex:none;color:var(--ink-3);transition:color .16s ease}
+  .cv:hover svg{color:var(--accent)}
+  .cvtext{display:flex;flex-direction:column;gap:1px}
+  .cvtext b{font-weight:600;font-size:.94rem;line-height:1.2}
+  .cvtext .mono{color:var(--ink-3);letter-spacing:.08em;font-size:.625rem}
+  .cv:hover .cvtext .mono{color:inherit;opacity:.7}
+
+  .cv-card{display:none}
+  body.mode-card .cv-card{display:inline-flex;align-self:center;margin-top:2px;background:var(--surface)}
+
   /* ---- qr side ---- */
   .side{
     padding:clamp(22px,3.4vw,32px);
@@ -303,6 +322,10 @@
     <section class="block avail">
       <h2 class="mono">Availability</h2>
       <p class="availline">Available for full&#8209;time roles from <b>21 September 2026</b>, based in London.</p>
+      <a class="cv" href="assets/Qirui_Miao_CV.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M13 2.5V8.5h6"/><path d="M12 12v5.2m0 0 2.1-2.1M12 17.2 9.9 15.1"/></svg>
+        <span class="cvtext"><b>Download CV</b><span class="mono">PDF &middot; 2 pages</span></span>
+      </a>
     </section>
   </div>
 
@@ -313,6 +336,10 @@
     <div id="panel-qr" role="tabpanel">
         <!--PANELS-->
     </div>
+    <a class="cv cv-card" href="assets/Qirui_Miao_CV.pdf" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M13 2.5V8.5h6"/><path d="M12 12v5.2m0 0 2.1-2.1M12 17.2 9.9 15.1"/></svg>
+      <span class="cvtext"><b>Download CV</b><span class="mono">PDF &middot; 2 pages</span></span>
+    </a>
   </div>
 </div>
 </div>
