@@ -10,6 +10,19 @@ so nothing is fetched from an external QR service. The only network request the
 page makes is to Google Fonts; saved locally and opened offline, it still renders
 and the QR codes still scan.
 
+## Two view modes
+
+- `https://qiruimiao.github.io`        - full profile (default; what a recruiter sees)
+- `https://qiruimiao.github.io/#card`  - business-card view for networking
+
+The toggle at the top switches between them and updates the URL, so either
+state can be bookmarked or shared.
+
+## Portrait
+
+Drop a square photo at `assets/portrait.jpg` (400x400 is plenty) and re-run the
+build script; it gets embedded as a data URI so the page stays a single file.
+
 ## Editing
 
 Open `index.html` and edit it directly, then commit and push — GitHub Pages

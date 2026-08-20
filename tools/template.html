@@ -61,6 +61,7 @@
     line-height:1.5;
     display:grid;
     place-items:start center;
+    align-content:start;
     padding:clamp(20px,4vw,48px);
     -webkit-font-smoothing:antialiased;
   }
@@ -103,6 +104,7 @@
   .beam{height:3px;width:104px;border-radius:2px;background:var(--beam);background-size:220% 100%;animation:sweep 9s ease-in-out infinite}
   @keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
   @media (prefers-reduced-motion:reduce){.beam{animation:none}}
+  .cardline{color:var(--ink-2);font-size:1rem;line-height:1.45;margin-top:3px}
   .headline{color:var(--ink-2);font-size:1.02rem;line-height:1.5;max-width:46ch;margin-top:3px}
 
   .block{display:flex;flex-direction:column;gap:12px}
@@ -127,6 +129,51 @@
 
   .availline{color:var(--ink-2);font-size:.95rem}
   .availline b{color:var(--ink);font-weight:700}
+
+
+  /* ---- wrap + view-mode switch ---- */
+  .wrap{display:flex;flex-direction:column;gap:12px;width:min(880px,100%)}
+  body.mode-card .wrap{width:min(430px,100%)}
+  .modebar{
+    display:flex;gap:3px;align-self:flex-end;
+    background:var(--rule-soft);border:1px solid var(--rule-soft);
+    border-radius:4px;padding:3px;
+  }
+  .mode{
+    appearance:none;border:0;cursor:pointer;background:transparent;color:var(--ink-3);
+    border-radius:3px;padding:6px 12px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+    transition:background .16s ease,color .16s ease;
+  }
+  .mode:hover{color:var(--ink)}
+  .mode.is-on{background:var(--surface);color:var(--accent);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+  .card{width:100%}
+
+  /* portrait */
+  .portrait{
+    width:76px;height:76px;border-radius:50%;object-fit:cover;
+    border:1px solid var(--rule);display:block;margin-bottom:4px;
+  }
+
+  /* ---- card mode ---- */
+  body.mode-card .main{display:none}
+  body.mode-card .headline{display:none}
+  body.mode-card .card{grid-template-areas:"id" "side";grid-template-columns:1fr}
+  body.mode-card .id{
+    align-items:center;text-align:center;
+    padding:clamp(30px,5vw,38px) 26px 22px;
+  }
+  body.mode-card .portrait{width:92px;height:92px;margin-bottom:6px}
+  body.mode-card .side{
+    border-left:none;border-top:1px solid var(--rule);border-bottom:none;
+    align-self:auto;justify-content:flex-start;
+  }
+  body.mode-card .plate{width:min(248px,66vw)}
+
+  /* ---- profile mode ---- */
+  body.mode-profile .cardline{display:none}
 
   /* ---- qr side ---- */
   .side{
@@ -196,11 +243,19 @@
   .cta:hover span{transform:translateX(3px)}
 </style>
 
+<div class="wrap">
+<div class="modebar" role="group" aria-label="View mode">
+  <button type="button" class="mode" id="btn-card" onclick="setMode('card')">Card</button>
+  <button type="button" class="mode" id="btn-profile" onclick="setMode('profile')">Full profile</button>
+</div>
+
 <div class="card">
   <header class="id">
+      <!--PORTRAIT-->
       <p class="place mono">London, United Kingdom</p>
       <h1>Qirui&nbsp;Miao</h1>
       <div class="beam" aria-hidden="true"></div>
+      <p class="cardline">MSc Advanced Materials Science &middot; UCL</p>
       <p class="headline">Materials scientist with hands-on precision-manufacturing experience and an applied machine-learning background.</p>
   </header>
 
@@ -260,8 +315,24 @@
     </div>
   </div>
 </div>
+</div>
 
 <script>
+  function setMode(m){
+    var card = m === 'card';
+    document.body.classList.toggle('mode-card', card);
+    document.body.classList.toggle('mode-profile', !card);
+    var bc = document.getElementById('btn-card'), bp = document.getElementById('btn-profile');
+    bc.classList.toggle('is-on', card);
+    bp.classList.toggle('is-on', !card);
+    bc.setAttribute('aria-pressed', card ? 'true' : 'false');
+    bp.setAttribute('aria-pressed', card ? 'false' : 'true');
+    if (history.replaceState) {
+      history.replaceState(null, '', card ? '#card' : location.pathname);
+    }
+  }
+  setMode(location.hash === '#card' ? 'card' : 'profile');
+
   function pick(key){
     document.querySelectorAll('.tab').forEach(function(t){
       var on = t.getAttribute('data-key') === key;
