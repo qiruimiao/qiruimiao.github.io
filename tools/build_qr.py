@@ -69,7 +69,10 @@ DOC_HEAD = """<!doctype html>
 <meta property="og:description" content="Materials scientist in London. MSc Advanced Materials Science, UCL. Available for full-time roles from 21 September 2026.">
 <meta property="og:url" content="https://qiruimiao.github.io/">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>QM</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Qirui Miao">
 """
 
 

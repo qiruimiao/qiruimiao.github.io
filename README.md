@@ -35,6 +35,20 @@ from `01_MASTER_CV/Qirui_Miao_Master_CV_V2_EN.docx` with two things removed:
 Keep the local master CV as the version you actually send to employers. When the
 master changes, re-export a public copy the same way rather than editing this PDF.
 
+## Icons
+
+`tools/build_icons.py` draws the home-screen and favicon set from the site's own
+identity - the QM monogram in Bricolage Grotesque over the dispersed-beam rule.
+It needs the variable font locally:
+
+    curl -sSL -o /tmp/Bricolage.ttf \
+      "https://raw.githubusercontent.com/google/fonts/main/ofl/bricolagegrotesque/BricolageGrotesque%5Bopsz%2Cwdth%2Cwght%5D.ttf"
+    pip install pillow
+    python3 tools/build_icons.py
+
+Note the font's variable axes are ordered opsz, wght, wdth - not the order the
+family name suggests. Passing them wrong silently yields ExtraLight.
+
 ## Portrait
 
 No photo is used, by choice: UK CV convention is to omit one. The mechanism below
