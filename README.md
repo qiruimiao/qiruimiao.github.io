@@ -3,7 +3,13 @@
 Personal site for Qirui Miao — a single self-contained HTML page.
 
 - **Live:** https://qiruimiao.github.io
-- **Source:** `index.html` (no build step, no dependencies)
+- **Source:** `index.html` - a complete, self-contained HTML document
+
+`index.html` is served raw by GitHub Pages, so `tools/build_qr.py` wraps the
+page in a real `<head>`. The `viewport` meta there is load-bearing: without it
+mobile browsers assume a ~980px desktop viewport, shrink the whole page, and the
+`max-width:819px` rules never fire. Do not hand-edit `index.html` - edit
+`tools/template.html` and rebuild.
 
 The QR codes are pre-generated static SVG paths embedded directly in the page,
 so nothing is fetched from an external QR service. The only network request the

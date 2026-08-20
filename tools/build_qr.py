@@ -52,6 +52,27 @@ ICONS = {
 }
 
 
+# index.html is served raw by GitHub Pages, so it must be a complete HTML
+# document. The viewport meta in particular is not optional: without it mobile
+# browsers assume a ~980px desktop viewport and shrink the whole page, and the
+# max-width:819px rules never fire.
+DOC_HEAD = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Qirui Miao - materials scientist in London. MSc Advanced Materials Science (UCL), BSc Geography and Environmental Science with Spatial Data Science (KCL).">
+<meta name="theme-color" content="#EFF2F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0F11" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Qirui Miao">
+<meta property="og:description" content="Materials scientist in London. MSc Advanced Materials Science, UCL. Available for full-time roles from 21 September 2026.">
+<meta property="og:url" content="https://qiruimiao.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>QM</text></svg>">
+"""
+
+
 def qr_path(text, border=3):
     """Encode `text` and return (module_count, SVG path data) as run-length rects."""
     qr = segno.make(text, error="m")
@@ -144,9 +165,19 @@ def main():
     # entity-encode everything non-ASCII so the page is charset-proof
     html = "".join(c if ord(c) < 128 else "&#%d;" % ord(c) for c in html)
 
+    # split the fragment into head-bound assets and body content
+    split_at = html.index('<div class="wrap">')
+    head_bits, body = html[:split_at].rstrip(), html[split_at:]
+    doc = DOC_HEAD + head_bits + "\n</head>\n<body>\n" + body + "\n</body>\n</html>\n"
+
     out = os.path.join(ROOT, "index.html")
-    io.open(out, "w", encoding="utf-8").write(html)
-    print("wrote %s (%d bytes)" % (out, len(html)))
+    io.open(out, "w", encoding="utf-8").write(doc)
+    print("wrote %s (%d bytes)" % (out, len(doc)))
+
+    # body-only fragment, for hosts that supply their own document skeleton
+    frag = os.path.join(ROOT, "tools", "fragment.html")
+    io.open(frag, "w", encoding="utf-8").write(html)
+    print("wrote %s (%d bytes)" % (frag, len(html)))
 
 
 if __name__ == "__main__":
