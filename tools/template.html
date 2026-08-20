@@ -1,0 +1,223 @@
+<title>Qirui Miao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root{
+    --paper:#EFF2F0;
+    --surface:#FBFCFB;
+    --surface-2:#F3F6F4;
+    --ink:#111719;
+    --ink-2:#4B5559;
+    --ink-3:#7C878C;
+    --rule:#D6DCD9;
+    --rule-soft:#E4E9E6;
+    --accent:#0B6B5B;
+    --accent-hover:#085548;
+    --accent-soft:#DCEBE6;
+    --shadow:0 1px 2px rgba(17,23,25,.05), 0 18px 46px -30px rgba(17,23,25,.45);
+    --beam:linear-gradient(90deg,#6D4AFF 0%,#0B9E8A 34%,#7FBF3A 56%,#F2A73B 78%,#E1503C 100%);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0B0F11;
+      --surface:#141A1C;
+      --surface-2:#111719;
+      --ink:#E9EEEC;
+      --ink-2:#A7B2B5;
+      --ink-3:#79858A;
+      --rule:#26302F;
+      --rule-soft:#1D2527;
+      --accent:#54D3B6;
+      --accent-hover:#82E5CD;
+      --accent-soft:#11322C;
+      --shadow:0 1px 2px rgba(0,0,0,.5), 0 22px 50px -32px rgba(0,0,0,1);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0B0F11;
+    --surface:#141A1C;
+    --surface-2:#111719;
+    --ink:#E9EEEC;
+    --ink-2:#A7B2B5;
+    --ink-3:#79858A;
+    --rule:#26302F;
+    --rule-soft:#1D2527;
+    --accent:#54D3B6;
+    --accent-hover:#82E5CD;
+    --accent-soft:#11322C;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 22px 50px -32px rgba(0,0,0,1);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+    font-size:1rem;
+    line-height:1.5;
+    display:grid;
+    place-items:center;
+    padding:clamp(20px,4vw,48px);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1{margin:0;font-weight:700;letter-spacing:-.035em;line-height:1;font-size:clamp(2.6rem,6.5vw,4rem)}
+  p{margin:0}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+  .mono{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  }
+
+  .card{
+    width:min(880px,100%);
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    box-shadow:var(--shadow);
+    display:grid;
+    grid-template-columns:1fr;
+    overflow:hidden;
+  }
+  @media (min-width:820px){
+    .card{grid-template-columns:1.15fr .85fr}
+    .side{border-left:1px solid var(--rule);border-top:none}
+  }
+
+  /* ---- identity side ---- */
+  .main{padding:clamp(28px,4.4vw,44px);display:flex;flex-direction:column;gap:26px}
+  .place{color:var(--ink-3)}
+  .beam{height:3px;width:104px;border-radius:2px;background:var(--beam);background-size:220% 100%;animation:sweep 9s ease-in-out infinite}
+  @keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @media (prefers-reduced-motion:reduce){.beam{animation:none}}
+
+  .degrees{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule-soft)}
+  .deg{display:grid;gap:5px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+  .deg:last-child{border-bottom:none;padding-bottom:0}
+  .deg .lvl{color:var(--accent)}
+  .deg b{font-size:1.22rem;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+  .deg .subj{color:var(--ink-2);font-size:.97rem;line-height:1.45;max-width:38ch}
+
+  /* ---- qr side ---- */
+  .side{
+    padding:clamp(22px,3.4vw,32px);
+    border-top:1px solid var(--rule);
+    background:var(--surface-2);
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:4px;padding:3px}
+  .tab{
+    appearance:none;border:0;cursor:pointer;
+    background:transparent;color:var(--ink-3);
+    border-radius:3px;padding:9px 2px 7px;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-family:"IBM Plex Mono",monospace;font-size:.5625rem;letter-spacing:.06em;text-transform:uppercase;
+    transition:background .16s ease,color .16s ease;
+  }
+  .tab svg{width:17px;height:17px}
+  .tab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .tab:hover{color:var(--ink)}
+  .tab.is-on{background:var(--surface);color:var(--accent);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+  .qrpanel{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .qrpanel[hidden]{display:none}
+  .plate{
+    background:#FFFFFF;
+    border:1px solid var(--rule);
+    border-radius:5px;
+    padding:10px;
+    width:min(238px,72vw);
+    line-height:0;
+  }
+  .plate svg{width:100%;height:auto;display:block}
+  .qrmeta{text-align:center;display:grid;gap:5px}
+  .cap{font-size:1rem;font-weight:500}
+  .sub{color:var(--ink-3);text-transform:none;letter-spacing:.02em;font-size:.72rem;word-break:break-word}
+  .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;color:var(--surface);background:var(--accent);
+    padding:11px 18px;border-radius:4px;
+    font-size:.9rem;font-weight:500;letter-spacing:-.005em;
+    transition:background .16s ease,transform .16s ease;
+  }
+  .cta:hover{background:var(--accent-hover);transform:translateY(-1px)}
+
+  /* ---- phone: fit the whole card on one screen ---- */
+  @media (max-width:819px){
+    body{padding:14px}
+    .main{padding:24px 22px 22px;gap:18px}
+    .side{padding:18px 22px 22px;gap:15px}
+    h1{font-size:clamp(2.2rem,10vw,2.9rem)}
+    .beam{width:88px}
+    .deg{padding:14px 0;gap:3px}
+    .deg b{font-size:1.1rem}
+    .deg .subj{font-size:.92rem;max-width:none}
+    .qrpanel{gap:13px}
+    .plate{width:min(210px,62vw);padding:8px}
+    .cap{font-size:.94rem}
+    .cta{padding:10px 16px}
+  }
+
+  .cta span{transition:transform .16s ease}
+  .cta:hover span{transform:translateX(3px)}
+</style>
+
+<div class="card">
+  <div class="main">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <p class="place mono">London, United Kingdom</p>
+      <h1>Qirui&nbsp;Miao</h1>
+      <div class="beam" aria-hidden="true"></div>
+    </div>
+
+    <div class="degrees">
+      <div class="deg">
+        <span class="lvl mono">MSc &middot; 2026</span>
+        <b>University College London</b>
+        <span class="subj">Advanced Materials Science &mdash; Data-driven Innovation</span>
+      </div>
+      <div class="deg">
+        <span class="lvl mono">BSc (Hons) &middot; 2025</span>
+        <b>King's College London</b>
+        <span class="subj">Geography &amp; Environmental Science with Spatial Data Science</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="tabs" role="tablist" aria-label="Choose what to scan or open">
+        <!--TABS-->
+    </div>
+    <div id="panel-qr" role="tabpanel">
+        <!--PANELS-->
+    </div>
+  </div>
+</div>
+
+<script>
+  function pick(key){
+    document.querySelectorAll('.tab').forEach(function(t){
+      var on = t.getAttribute('data-key') === key;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.qrpanel').forEach(function(p){
+      p.hidden = p.getAttribute('data-key') !== key;
+    });
+  }
+  document.querySelector('.tabs').addEventListener('keydown', function(e){
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var tabs = [].slice.call(document.querySelectorAll('.tab'));
+    var i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    e.preventDefault();
+    var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    next.focus();
+    pick(next.getAttribute('data-key'));
+  });
+</script>
