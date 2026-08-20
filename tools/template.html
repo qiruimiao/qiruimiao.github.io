@@ -60,7 +60,7 @@
     font-size:1rem;
     line-height:1.5;
     display:grid;
-    place-items:center;
+    place-items:start center;
     padding:clamp(20px,4vw,48px);
     -webkit-font-smoothing:antialiased;
   }
@@ -76,6 +76,7 @@
 
   .card{
     width:min(880px,100%);
+    grid-template-areas:"id" "side" "main";
     background:var(--surface);
     border:1px solid var(--rule);
     border-radius:6px;
@@ -84,24 +85,48 @@
     grid-template-columns:1fr;
     overflow:hidden;
   }
+  .id{grid-area:id}
+  .main{grid-area:main}
+  .side{grid-area:side}
   @media (min-width:820px){
-    .card{grid-template-columns:1.15fr .85fr}
-    .side{border-left:1px solid var(--rule);border-top:none}
+    .card{grid-template-columns:1.2fr .8fr;grid-template-areas:"id side" "main side"}
+    .side{border-left:1px solid var(--rule);border-top:none;border-bottom:none;align-self:stretch;justify-content:center}
   }
 
   /* ---- identity side ---- */
-  .main{padding:clamp(28px,4.4vw,44px);display:flex;flex-direction:column;gap:26px}
+  .main{padding:0 clamp(28px,4.2vw,42px) clamp(28px,4.2vw,42px);display:flex;flex-direction:column;gap:26px}
+  .id{
+    display:flex;flex-direction:column;gap:11px;
+    padding:clamp(28px,4.2vw,42px) clamp(28px,4.2vw,42px) 24px;
+  }
   .place{color:var(--ink-3)}
   .beam{height:3px;width:104px;border-radius:2px;background:var(--beam);background-size:220% 100%;animation:sweep 9s ease-in-out infinite}
   @keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
   @media (prefers-reduced-motion:reduce){.beam{animation:none}}
+  .headline{color:var(--ink-2);font-size:1.02rem;line-height:1.5;max-width:46ch;margin-top:3px}
 
-  .degrees{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule-soft)}
-  .deg{display:grid;gap:5px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
-  .deg:last-child{border-bottom:none;padding-bottom:0}
-  .deg .lvl{color:var(--accent)}
-  .deg b{font-size:1.22rem;font-weight:700;letter-spacing:-.02em;line-height:1.2}
-  .deg .subj{color:var(--ink-2);font-size:.97rem;line-height:1.45;max-width:38ch}
+  .block{display:flex;flex-direction:column;gap:12px}
+  .block h2{
+    margin:0;font-weight:500;color:var(--ink-3);
+    display:flex;align-items:center;gap:13px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .block h2::after{content:"";flex:1;height:1px;background:var(--rule-soft)}
+
+  .rows{display:flex;flex-direction:column;gap:18px}
+  .row{display:grid;gap:4px}
+  .row .meta{color:var(--accent)}
+  .row h3{margin:0;font-size:1.14rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+  .row .sub{color:var(--ink-2);font-size:.96rem;line-height:1.45}
+  .row .diss{color:var(--ink-3);font-size:.875rem;line-height:1.5;max-width:52ch;margin-top:2px}
+
+  ul.caps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  ul.caps li{position:relative;padding-left:18px;color:var(--ink-2);font-size:.93rem;line-height:1.45}
+  ul.caps li::before{content:"";position:absolute;left:0;top:.66em;width:7px;height:1px;background:var(--accent)}
+
+  .availline{color:var(--ink-2);font-size:.95rem}
+  .availline b{color:var(--ink);font-weight:700}
 
   /* ---- qr side ---- */
   .side{
@@ -147,16 +172,20 @@
   }
   .cta:hover{background:var(--accent-hover);transform:translateY(-1px)}
 
-  /* ---- phone: fit the whole card on one screen ---- */
+  /* ---- phone ---- */
   @media (max-width:819px){
     body{padding:14px}
-    .main{padding:24px 22px 22px;gap:18px}
-    .side{padding:18px 22px 22px;gap:15px}
+    .id{padding:26px 22px 20px}
+    .main{padding:0 22px 26px;gap:22px}
+    .side{padding:20px 22px 22px;gap:15px;border-bottom:1px solid var(--rule)}
     h1{font-size:clamp(2.2rem,10vw,2.9rem)}
     .beam{width:88px}
-    .deg{padding:14px 0;gap:3px}
-    .deg b{font-size:1.1rem}
-    .deg .subj{font-size:.92rem;max-width:none}
+    .headline{font-size:.97rem;max-width:none}
+    .rows{gap:16px}
+    .row h3{font-size:1.06rem}
+    .row .sub{font-size:.92rem}
+    .row .diss{font-size:.84rem;max-width:none}
+    ul.caps li{font-size:.89rem}
     .qrpanel{gap:13px}
     .plate{width:min(210px,62vw);padding:8px}
     .cap{font-size:.94rem}
@@ -168,25 +197,58 @@
 </style>
 
 <div class="card">
-  <div class="main">
-    <div style="display:flex;flex-direction:column;gap:12px">
+  <header class="id">
       <p class="place mono">London, United Kingdom</p>
       <h1>Qirui&nbsp;Miao</h1>
       <div class="beam" aria-hidden="true"></div>
-    </div>
+      <p class="headline">Materials scientist with hands-on precision-manufacturing experience and an applied machine-learning background.</p>
+  </header>
 
-    <div class="degrees">
-      <div class="deg">
-        <span class="lvl mono">MSc &middot; 2026</span>
-        <b>University College London</b>
-        <span class="subj">Advanced Materials Science &mdash; Data-driven Innovation</span>
+  <div class="main">
+    <section class="block">
+      <h2 class="mono">Education</h2>
+      <div class="rows">
+        <article class="row">
+          <p class="meta mono">MSc &middot; 2026</p>
+          <h3>University College London</h3>
+          <p class="sub">Advanced Materials Science &mdash; Data-driven Innovation</p>
+          <p class="diss">Dissertation: DFT-derived oxidation energy prediction for organic cathode molecules using machine learning</p>
+        </article>
+        <article class="row">
+          <p class="meta mono">BSc (Hons) &middot; 2025</p>
+          <h3>King's College London</h3>
+          <p class="sub">Geography &amp; Environmental Science with Spatial Data Science</p>
+          <p class="diss">Dissertation: Optimising the UK's offshore wind energy permitting process</p>
+        </article>
       </div>
-      <div class="deg">
-        <span class="lvl mono">BSc (Hons) &middot; 2025</span>
-        <b>King's College London</b>
-        <span class="subj">Geography &amp; Environmental Science with Spatial Data Science</span>
+    </section>
+
+    <section class="block">
+      <h2 class="mono">Experience</h2>
+      <div class="rows">
+        <article class="row">
+          <p class="meta mono">Summers 2023&ndash;2025</p>
+          <h3>XLASER OPTICS, Shanghai</h3>
+          <p class="sub">Technical Operations &amp; Sales Intern</p>
+          <p class="diss">Precision optics and optical coatings &mdash; international customer specifications, CAD drawings, coating-workshop operations and production quality inspection.</p>
+        </article>
       </div>
-    </div>
+    </section>
+
+    <section class="block">
+      <h2 class="mono">Capabilities</h2>
+      <ul class="caps">
+        <li>CAD and design for manufacture &mdash; Fusion&nbsp;360, AutoCAD, FDM printing</li>
+        <li>Applied machine learning for materials &mdash; Python, RDKit, XGBoost</li>
+        <li>Metrology and quality inspection &mdash; dimensional, surface and coating defects</li>
+        <li>Technical customer communication &mdash; English and Mandarin</li>
+      </ul>
+    </section>
+
+    <section class="block avail">
+      <h2 class="mono">Availability</h2>
+      <p class="availline">Available for full&#8209;time roles from <b>21 September 2026</b>, based in London.</p>
+    </section>
   </div>
 
   <div class="side">
