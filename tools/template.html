@@ -123,6 +123,14 @@
   .row .sub{color:var(--ink-2);font-size:.96rem;line-height:1.45}
   .row .diss{color:var(--ink-3);font-size:.875rem;line-height:1.5;max-width:52ch;margin-top:2px}
 
+  .row h3 a{color:inherit;text-decoration:none;transition:color .16s ease}
+  .row h3 a:hover{color:var(--accent)}
+  .row h3 .ext{font-size:.72em;margin-left:.25em;color:var(--ink-3);font-weight:500}
+  .row h3 a:hover .ext{color:inherit}
+  .row .diss a,.row .sub a{color:var(--accent);text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+  .row .diss a:hover,.row .sub a:hover{text-decoration-color:currentColor}
+
   ul.caps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
   ul.caps li{position:relative;padding-left:18px;color:var(--ink-2);font-size:.93rem;line-height:1.45}
   ul.caps li::before{content:"";position:absolute;left:0;top:.66em;width:7px;height:1px;background:var(--accent)}
@@ -305,6 +313,18 @@
           <h3>XLASER OPTICS, Shanghai</h3>
           <p class="sub">Technical Operations &amp; Sales Intern</p>
           <p class="diss">Precision optics and optical coatings &mdash; international customer specifications, CAD drawings, coating-workshop operations and production quality inspection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="mono">Selected work</h2>
+      <div class="rows">
+        <article class="row">
+          <p class="meta mono">Open source &middot; 2026</p>
+          <h3><a href="https://github.com/qiruimiao/personal-site-skill" target="_blank" rel="noopener">personal-site<span class="ext" aria-hidden="true">&#8599;</span></a></h3>
+          <p class="sub">Python &middot; Claude Code skill</p>
+          <p class="diss">Turns a CV and a set of links into a deployable one-page site &mdash; QR codes encoded at build time, a business-card view and a home-screen icon set. Same pipeline that builds this page.</p>
         </article>
       </div>
     </section>
